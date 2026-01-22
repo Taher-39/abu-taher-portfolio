@@ -9,6 +9,16 @@ const Portfolio = () => {
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
+  // Contact form states
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState('');
+
   // Typing animation hook
   const [titleIndex, setTitleIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
@@ -64,7 +74,7 @@ const Portfolio = () => {
       role: "Assistant Math Teacher",
       company: "Al Jamiya Salafia Madrasha",
       period: "Sep 2024 - Present",
-      description: "Teaching Math (Classes 3-10) and ICT (SSC-HSC level). Leveraging B.Sc. in CSE to provide quality education across multiple grades."
+      description: "Teaching Math (Classes 6-10) and ICT (SSC-HSC level). Leveraging B.Sc. in CSE to provide quality education across multiple grades."
     },
     {
       role: "Front End Developer Intern",
@@ -73,7 +83,46 @@ const Portfolio = () => {
       description: "Built responsive layouts using React, Bootstrap, and CSS. Worked with Node.js, MongoDB, and Mongoose in a collaborative team environment."
     }
   ];
+  // Handle form input changes
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value
+      });
+    };
 
+  // Handle form submission
+    const handleSubmit = async (e: React.SyntheticEvent) => {
+      e.preventDefault();
+      setIsSubmitting(true);
+      setSubmitStatus('');
+  
+      try {
+        const response = await fetch('/api/send-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+  
+        const data = await response.json();
+  
+        if (response.ok) {
+          setSubmitStatus('success');
+          setFormData({ name: '', email: '', subject: '', message: '' });
+          alert('✅ Message sent successfully! I will get back to you soon.');
+        } else {
+          setSubmitStatus('error');
+          alert('❌ Failed to send message. Please try again or email directly.');
+        }
+      } catch (error) {
+        setSubmitStatus('error');
+        alert('❌ Failed to send message. Please try again or email directly.');
+      } finally {
+        setIsSubmitting(false);
+      }
+    };
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-gray-900 text-gray-100">
       {/* Navbar */}
@@ -550,35 +599,51 @@ const Portfolio = () => {
                 <div className="grid md:grid-cols-2 gap-6">
                   <input
                     type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
                     placeholder="Your Name"
                     className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
+                    required
                   />
                   <input
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
                     placeholder="Your Email"
                     className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
+                    required
                   />
                 </div>
                 <input
                   type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleInputChange}
                   placeholder="Subject"
                   className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
+                  required
                 />
                 <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
                   placeholder="Your Message"
                   rows={5}
                   className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 transition-colors resize-none"
+                  required
                 ></textarea>
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    alert('Message sent! (This is a demo)');
-                  }}
-                  className="w-full px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300"
+                  onClick={handleSubmit}
+                  disabled={isSubmitting}
+                  className={`w-full px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 ${
+                    isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
                 >
-                  Send Message
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
                 </motion.button>
               </div>
             </div>
