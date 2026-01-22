@@ -7,7 +7,7 @@ A modern, fully responsive, animated personal portfolio website built to showcas
 
 ## 📖 About This Project
 
-This portfolio was created using **Next.js 14 (App Router)**, **Tailwind CSS**, and **Framer Motion** to deliver a premium, smooth, and engaging user experience with glassmorphism design and fluid animations.
+This portfolio was created using **Next.js 16.1.4 (App Router)**, **Tailwind CSS**, and **Framer Motion** to deliver a premium, smooth, and engaging user experience with glassmorphism design and fluid animations.
 
 ### 🎨 Key Design Features
 - Dark glassmorphism theme with translucent blur effects

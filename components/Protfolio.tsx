@@ -71,16 +71,36 @@ const Portfolio = () => {
 
   const experiences = [
     {
-      role: "Assistant Math Teacher",
-      company: "Al Jamiya Salafia Madrasha",
-      period: "Sep 2024 - Present",
-      description: "Teaching Math (Classes 6-10) and ICT (SSC-HSC level). Leveraging B.Sc. in CSE to provide quality education across multiple grades."
-    },
-    {
       role: "Front End Developer Intern",
       company: "MessBook",
       period: "May - Jul 2022",
       description: "Built responsive layouts using React, Bootstrap, and CSS. Worked with Node.js, MongoDB, and Mongoose in a collaborative team environment."
+    },
+    {
+      role: "Assistant Math Teacher",
+      company: "Al-Jamiah As-Salafiyah - Rajshahi",
+      // period: "9th Sep 2024 - Present",
+      period: (() => {
+        const start = new Date('2024-09-09');
+        const now = new Date();
+
+        let years = now.getFullYear() - start.getFullYear();
+        let months = now.getMonth() - start.getMonth();
+        if (now.getDate() < start.getDate()) months--;
+        if (months < 0) {
+          years--;
+          months += 12;
+        }
+
+        const parts: string[] = [];
+        if (years > 0) parts.push(`${years}y`);
+        if (months > 0) parts.push(`${months}m`);
+        const duration = parts.length ? ` (${parts.join(' ')})` : '';
+
+        const startStr = start.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
+        return `${startStr} - Present${duration}`;
+      })(),
+      description: "Teaching Math (Classes 6-10) and ICT (SSC-HSC level). Leveraging B.Sc. in CSE to provide quality education across multiple grades."
     }
   ];
   // Handle form input changes
@@ -655,7 +675,7 @@ const Portfolio = () => {
       <footer className="py-8 border-t border-gray-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-center text-gray-500">
-            © 2025 Abu Taher. Built with Next.js, Tailwind CSS & Framer Motion.
+            © {new Date().getFullYear()} Abu Taher. All rights reserved.
           </p>
         </div>
       </footer>
