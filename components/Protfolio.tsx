@@ -40,22 +40,22 @@ const Portfolio = () => {
       title: "Halal Zone",
       description: "MERN E-Commerce web app with Redux, TypeScript, and JWT Auth. Features include cart management, checkout, dashboard, OTP verification, and order tracking.",
       tech: ["React", "Redux", "TypeScript", "Tailwind", "Node.js", "Express", "MongoDB"],
-      live: "https://halal-zone.web.app",
-      code: "https://github.com/taher-39"
+      live: "https://halzo.vercel.app/",
+      code: "https://github.com/Taher-39/camp-store-client"
     },
     {
       title: "Car Rental System",
       description: "Backend API with TypeScript featuring Zod validation, Bcryptjs security, JWT authentication, and comprehensive booking system with admin panel.",
       tech: ["TypeScript", "Express.js", "MongoDB", "Zod", "JWT", "Bcryptjs"],
       live: "https://erental-car.vercel.app",
-      code: "https://github.com/taher-39"
+      code: "https://github.com/Taher-39/car-rental-reservation-system"
     },
     {
       title: "Creative Agency",
       description: "Full-stack website with conditional dashboards for admin and users, featuring SSLCommerz payment integration for seamless transactions.",
       tech: ["React", "Node.js", "MongoDB", "SSLCommerz", "Express"],
-      live: "#",
-      code: "https://github.com/taher-39"
+      live: "https://creative-agency-git-main-taher-39.vercel.app/",
+      code: "https://github.com/Taher-39/agency-client"
     }
   ];
 
@@ -195,11 +195,13 @@ const Portfolio = () => {
               View Projects
             </button>
             <a 
-              href="mailto:taherpust@gmail.com"
+              href="https://drive.google.com/uc?export=download&id=1GZHbcox6UXTrq8Z8OsRD1_CmFDCtPTah"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-8 py-3 border border-blue-500 rounded-lg font-semibold hover:bg-blue-500/10 transition-all duration-300 flex items-center gap-2"
             >
               <Download size={20} />
-              Contact Me
+              Download Resume
             </a>
           </motion.div>
 
