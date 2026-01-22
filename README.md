@@ -85,8 +85,8 @@ Halal products online shopping platform
 **Features:** Cart, secure checkout, admin dashboard, OTP verification, order tracking, JWT auth  
 
 **Links:**  
-- Live: https://halal-zone.web.app  
-- Code: https://github.com/taher-39  
+- Live: https://halzo.vercel.app/  
+- Code: https://github.com/Taher-39/camp-store-client  
 
 #### Car Rental System  
 **TypeScript Backend API**  
@@ -96,8 +96,8 @@ Secure car rental booking system
 **Features:** Authentication (user & admin), booking system, admin panel, Zod validation, password hashing, future-date-only booking  
 
 **Links:**  
-- Live API: https://erental-car.vercel.app  
-- Code: https://github.com/taher-39  
+- Live API: https://erental-car.vercel.app 
+- Code: https://github.com/Taher-39/car-rental-reservation-system  
 
 #### Creative Agency  
 **Full Stack Website with Payment**  
@@ -106,9 +106,17 @@ Complete agency website
 **Tech:** React, Node.js, MongoDB, SSLCommerz, Express  
 **Features:** Role-based dashboards, SSLCommerz payment integration, service & order management  
 
-**Code:** https://github.com/taher-39  
+**Links:**  
+- Live API: https://creative-agency-git-main-taher-39.vercel.app/ 
+- Code: https://github.com/Taher-39/agency-client 
 
 ### 5. Experience
+**Front End Developer Intern**  
+MessBook  
+May – July 2022  
+- Built responsive layouts with React & Bootstrap  
+- Worked with Node.js, MongoDB, Mongoose  
+- Used Git/GitHub for collaboration  
 
 **Assistant Math Teacher**  
 Al Jamiya Salafia Madrasha  
@@ -116,12 +124,6 @@ September 2024 – Present
 - Teaching Mathematics (Classes 3–10)  
 - Teaching ICT (SSC–HSC level)  
 
-**Front End Developer Intern**  
-MessBook  
-May – July 2022  
-- Built responsive layouts with React & Bootstrap  
-- Worked with Node.js, MongoDB, Mongoose  
-- Used Git/GitHub for collaboration  
 
 ### 6. Contact
 - **Email:** taherpust@gmail.com  
