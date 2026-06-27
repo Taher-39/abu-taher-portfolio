@@ -1,13 +1,19 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Menu, X, Github, Linkedin, Mail, MapPin, Download, ExternalLink, Code, Database, Wrench, Award, Briefcase, GraduationCap } from 'lucide-react';
+import Image from 'next/image';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { Menu, X, Github, Linkedin, Mail, MapPin, Download, ExternalLink, Code, Database, Wrench, Award, Briefcase, GraduationCap, ChevronRight, XCircle, Lightbulb, AlertTriangle, ArrowUpRight } from 'lucide-react';
+// Import your photo (adjust path if needed)
+import AbuTaher from '../images/AbuTaher.jpg'; // Ensure this path is correct
 
 const Portfolio = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+
+  // Project modal state
+  const [selectedProject, setSelectedProject] = useState<any>(null);
 
   // Contact form states
   const [formData, setFormData] = useState({
@@ -22,7 +28,7 @@ const Portfolio = () => {
   // Typing animation hook
   const [titleIndex, setTitleIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
-  const titles = ["Full Stack Developer", "CSE Graduate", "Educator"];
+  const titles = ["Full Stack Developer", "CSE Graduate", "Freelancer"];
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -45,121 +51,111 @@ const Portfolio = () => {
     tools: ["Git", "GitHub", "Vercel", "Postman", "Zod", "JWT"]
   };
 
+  // Updated projects array with new project and detailed fields
   const projects = [
+    {
+      title: "Maktabatus Salaf Book Store",
+      description: "A full-stack e-commerce platform for Islamic books with admin dashboard, user authentication, cart, wishlist, reviews, invoices, and more. Currently in active development.",
+      tech: ["Next.js", "React", "Express", "MongoDB", "Firebase", "Zustand", "Tailwind", "Cloudinary"],
+      live: "https://maktabatus-salaf.vercel.app",
+      code: "https://github.com/Taher-39/maktabatus-salaf",
+      challenges: "Implementing advanced features like Google/Facebook login, OTP-based email registration, and forgot password while ensuring high security. Also managing complex admin panels and real-time data updates.",
+      futurePlans: "Add AI-based book recommendations, improve search with Elasticsearch, and integrate a payment gateway for international transactions. Also plan to add a mobile app using React Native."
+    },
     {
       title: "Halal Zone",
       description: "MERN E-Commerce web app with Redux, TypeScript, and JWT Auth. Features include cart management, checkout, dashboard, OTP verification, and order tracking.",
       tech: ["React", "Redux", "TypeScript", "Tailwind", "Node.js", "Express", "MongoDB"],
       live: "https://halzo.vercel.app/",
-      code: "https://github.com/Taher-39/camp-store-client"
+      code: "https://github.com/Taher-39/camp-store-client",
+      challenges: "Implementing real-time cart updates and payment integration with SSLCommerz.",
+      futurePlans: "Add AI-based product recommendations and multi-language support."
     },
     {
       title: "Car Rental System",
       description: "Backend API with TypeScript featuring Zod validation, Bcryptjs security, JWT authentication, and comprehensive booking system with admin panel.",
       tech: ["TypeScript", "Express.js", "MongoDB", "Zod", "JWT", "Bcryptjs"],
       live: "https://erental-car.vercel.app",
-      code: "https://github.com/Taher-39/car-rental-reservation-system"
-    },
-    {
-      title: "Creative Agency",
-      description: "Full-stack website with conditional dashboards for admin and users, featuring SSLCommerz payment integration for seamless transactions.",
-      tech: ["React", "Node.js", "MongoDB", "SSLCommerz", "Express"],
-      live: "https://creative-agency-git-main-taher-39.vercel.app/",
-      code: "https://github.com/Taher-39/agency-client"
+      code: "https://github.com/Taher-39/car-rental-reservation-system",
+      challenges: "Designing complex booking logic and ensuring data consistency across multiple collections.",
+      futurePlans: "Add frontend dashboard and real-time availability tracking."
     }
   ];
 
+  // Updated experience: removed math teacher, added freelance contract work
   const experiences = [
+    {
+      role: "Full Stack Developer",
+      company: "Self-employed / Contract Projects",
+      period: "Feb 2026 - Present",
+      description: "Building custom full-stack web applications for clients using MERN stack. Responsible for requirement analysis, development, deployment, and maintenance. Recently delivered an e-commerce platform for Islamic books (Maktabatus Salaf) and a car rental backend API."
+    },
     {
       role: "Front End Developer Intern",
       company: "MessBook",
       period: "May - Jul 2022",
       description: "Built responsive layouts using React, Bootstrap, and CSS. Worked with Node.js, MongoDB, and Mongoose in a collaborative team environment."
-    },
-    {
-      role: "Assistant Math Teacher",
-      company: "Al-Jamiah As-Salafiyah - Rajshahi",
-      // period: "9th Sep 2024 - Present",
-      period: (() => {
-        const start = new Date('2024-09-09');
-        const now = new Date();
-
-        let years = now.getFullYear() - start.getFullYear();
-        let months = now.getMonth() - start.getMonth();
-        if (now.getDate() < start.getDate()) months--;
-        if (months < 0) {
-          years--;
-          months += 12;
-        }
-
-        const parts: string[] = [];
-        if (years > 0) parts.push(`${years}y`);
-        if (months > 0) parts.push(`${months}m`);
-        const duration = parts.length ? ` (${parts.join(' ')})` : '';
-
-        const startStr = start.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
-        return `${startStr} - Present${duration}`;
-      })(),
-      description: "Teaching Math (Classes 6-10) and ICT (SSC-HSC level). Leveraging B.Sc. in CSE to provide quality education across multiple grades."
     }
   ];
+
   // Handle form input changes
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      setFormData({
-        ...formData,
-        [e.target.name]: e.target.value
-      });
-    };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
 
   // Handle form submission
-    const handleSubmit = async (e: React.SyntheticEvent) => {
-      e.preventDefault();
-      setIsSubmitting(true);
-      setSubmitStatus('');
-  
-      try {
-        const response = await fetch('/api/send-email', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        });
-  
-        const data = await response.json();
-  
-        if (response.ok) {
-          setSubmitStatus('success');
-          setFormData({ name: '', email: '', subject: '', message: '' });
-          alert('✅ Message sent successfully! I will get back to you soon.');
-        } else {
-          setSubmitStatus('error');
-          alert('❌ Failed to send message. Please try again or email directly.');
-        }
-      } catch (error) {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('');
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        alert('✅ Message sent successfully! I will get back to you soon.');
+      } else {
         setSubmitStatus('error');
         alert('❌ Failed to send message. Please try again or email directly.');
-      } finally {
-        setIsSubmitting(false);
       }
-    };
+    } catch (error) {
+      setSubmitStatus('error');
+      alert('❌ Failed to send message. Please try again or email directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-gray-900 text-gray-100">
-      {/* Navbar */}
-      <motion.nav 
+      {/* Navbar (unchanged) */}
+      <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         className="fixed top-0 w-full z-50 backdrop-blur-md bg-gray-900/70 border-b border-gray-800/50"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <motion.div 
+            <motion.div
               whileHover={{ scale: 1.05 }}
               className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent"
             >
               AT
             </motion.div>
-            
+
             {/* Desktop Menu */}
             <div className="hidden md:flex space-x-8">
               {['Home', 'About', 'Skills', 'Projects', 'Experience', 'Contact'].map((item) => (
@@ -179,7 +175,7 @@ const Portfolio = () => {
             </div>
 
             {/* Mobile Menu Button */}
-            <button 
+            <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="md:hidden"
             >
@@ -190,7 +186,7 @@ const Portfolio = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             className="md:hidden bg-gray-800/95 backdrop-blur-lg"
@@ -215,85 +211,112 @@ const Portfolio = () => {
         )}
       </motion.nav>
 
-      {/* Hero Section */}
+      {/* Hero Section – photo on right, text on left */}
       <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-cyan-500/10"></div>
-        <motion.div 
-          style={{ opacity }}
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10"
-        >
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-5xl md:text-7xl font-bold mb-6"
-          >
-            Hi, I'm <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Abu Taher</span>
-          </motion.h1>
-          
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="text-2xl md:text-3xl mb-4 h-12 text-blue-300"
-          >
-            {titles[titleIndex].substring(0, charIndex)}
-            <span className="animate-pulse">|</span>
-          </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            className="text-lg md:text-xl text-gray-400 mb-8 max-w-3xl mx-auto"
-          >
-            Building scalable web applications and empowering the next generation of tech talent.
-          </motion.p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 w-full">
+          <div className="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-12">
 
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="flex flex-wrap gap-4 justify-center"
-          >
-            <button 
-              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-              className="p-10 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 cursor-pointer"
+            {/* Left side – Text, Buttons, Social */}
+            <motion.div
+              style={{ opacity }}
+              className="flex-1 text-center md:text-left"
             >
-              View Projects
-            </button>
-            <a 
-              href="https://drive.google.com/uc?export=download&id=1GZHbcox6UXTrq8Z8OsRD1_CmFDCtPTah"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-3 border border-blue-500 rounded-lg font-semibold hover:bg-blue-500/10 transition-all duration-300 flex items-center gap-2"
-            >
-              <Download size={20} />
-              Download Resume
-            </a>
-          </motion.div>
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4"
+              >
+                Hi, I'm <br className="sm:hidden" />
+                <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Abu Taher</span>
+              </motion.h1>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2, duration: 0.8 }}
-            className="flex gap-6 justify-center mt-12"
-          >
-            <a href="https://github.com/taher-39" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">
-              <Github size={28} />
-            </a>
-            <a href="https://linkedin.com/in/taher39" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">
-              <Linkedin size={28} />
-            </a>
-            <a href="mailto:taherpust@gmail.com" className="hover:text-blue-400 transition-colors">
-              <Mail size={28} />
-            </a>
-          </motion.div>
-        </motion.div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3, duration: 0.8 }}
+                className="text-xl sm:text-2xl md:text-3xl mb-2 h-12 text-blue-300"
+              >
+                {titles[titleIndex].substring(0, charIndex)}
+                <span className="animate-pulse">|</span>
+              </motion.div>
+
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6, duration: 0.8 }}
+                className="text-base sm:text-lg md:text-xl text-gray-400 mb-8 max-w-2xl mx-auto md:mx-0"
+              >
+                Building scalable web applications and delivering high-quality solutions for clients worldwide.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className="flex flex-wrap gap-4 justify-center md:justify-start"
+              >
+                <button
+                  onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="px-6 sm:px-8 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 cursor-pointer"
+                >
+                  View Projects
+                </button>
+                <a
+                  href="https://drive.google.com/uc?export=download&id=1GZHbcox6UXTrq8Z8OsRD1_CmFDCtPTah"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 sm:px-8 py-3 border border-blue-500 rounded-lg font-semibold hover:bg-blue-500/10 transition-all duration-300 flex items-center gap-2"
+                >
+                  <Download size={20} />
+                  Download Resume
+                </a>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.2, duration: 0.8 }}
+                className="flex gap-6 justify-center md:justify-start mt-10"
+              >
+                <a href="https://github.com/taher-39" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">
+                  <Github size={28} />
+                </a>
+                <a href="https://linkedin.com/in/taher39" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">
+                  <Linkedin size={28} />
+                </a>
+                <a href="mailto:taherpust@gmail.com" className="hover:text-blue-400 transition-colors">
+                  <Mail size={28} />
+                </a>
+              </motion.div>
+            </motion.div>
+
+            {/* Right side – Profile Photo */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="flex-shrink-0 flex justify-center md:justify-end"
+            >
+              <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full overflow-hidden border-4 border-blue-500 shadow-xl shadow-blue-500/20">
+                <Image
+                  src={AbuTaher}
+                  alt="Abu Taher"
+                  width={288}
+                  height={288}
+                  className="object-cover w-full h-full"
+                  priority
+                />
+              </div>
+            </motion.div>
+          </div>
+        </div>
       </section>
 
-      {/* About Section */}
+      {/* About Section – updated to remove teaching references */}
       <section id="about" className="py-20 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -305,7 +328,7 @@ const Portfolio = () => {
             <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center">
               About <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Me</span>
             </h2>
-            
+
             <div className="grid md:grid-cols-2 gap-8">
               {/* Left Column - Profile Card */}
               <motion.div
@@ -326,8 +349,9 @@ const Portfolio = () => {
                 </div>
 
                 <p className="text-gray-300 leading-relaxed mb-6">
-                  Passionate computer science graduate with expertise in building scalable web applications using the MERN stack. 
-                  I combine technical proficiency with a dedication to education, mentoring the next generation of tech enthusiasts.
+                  Passionate computer science graduate with expertise in building scalable web applications using the MERN stack.
+                  I'm currently working as a freelance full‑stack developer, delivering custom solutions for clients. I enjoy solving complex problems and continuously learning new technologies.
+                  Outside of coding, I love playing cricket, reading books, and exploring new places.
                 </p>
 
                 <div className="space-y-3">
@@ -361,11 +385,23 @@ const Portfolio = () => {
                     </div>
                     <div className="flex-1">
                       <h3 className="text-xl font-bold mb-2 text-blue-300">Education</h3>
-                      <p className="text-white font-semibold">B.Sc. in Computer Science & Engineering</p>
-                      <p className="text-gray-300 text-sm">Pabna University of Science and Technology</p>
-                      <div className="flex items-center gap-4 mt-2 text-sm">
-                        <span className="px-3 py-1 bg-blue-500/20 rounded-full text-blue-300">CGPA: 2.95/4.00</span>
-                        <span className="text-gray-400">2018 - 2024</span>
+
+                      {/* B.Sc. */}
+                      <div className="mb-4">
+                        <p className="text-white font-semibold">B.Sc. in Computer Science & Engineering</p>
+                        <p className="text-gray-300 text-sm">Pabna University of Science and Technology</p>
+                        <div className="flex items-center gap-4 mt-1 text-sm">
+                          <span className="text-gray-400">2018 – 2024</span>
+                        </div>
+                      </div>
+
+                      {/* M.Sc. (ongoing) */}
+                      <div>
+                        <p className="text-white font-semibold">M.Sc. in Computer Science & Engineering <span className="text-green-400 text-sm font-normal">(ongoing)</span></p>
+                        <p className="text-gray-300 text-sm">Pabna University of Science and Technology</p>
+                        <div className="flex items-center gap-4 mt-1 text-sm">
+                          <span className="text-gray-400">2026 – Present</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -408,7 +444,45 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Skills Section */}
+      {/* Experience Section – updated with freelance role */}
+      <section id="experience" className="py-20 bg-gray-800/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">
+              Work <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Experience</span>
+            </h2>
+
+            <div className="space-y-8">
+              {experiences.map((exp, idx) => (
+                <motion.div
+                  key={exp.role}
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: idx * 0.2 }}
+                  viewport={{ once: true }}
+                  className="backdrop-blur-lg bg-gray-800/40 border border-gray-700/50 rounded-xl p-6 md:p-8 hover:border-blue-500/50 transition-all duration-300"
+                >
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                    <div>
+                      <h3 className="text-2xl font-bold text-blue-400">{exp.role}</h3>
+                      <p className="text-xl text-gray-300">{exp.company}</p>
+                    </div>
+                    <span className="text-gray-500 mt-2 md:mt-0">{exp.period}</span>
+                  </div>
+                  <p className="text-gray-400">{exp.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Skills Section (unchanged) */}
       <section id="skills" className="py-20 bg-gray-800/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -456,7 +530,7 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Projects Section */}
+      {/* Projects Section with "View More" button and modal */}
       <section id="projects" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -481,9 +555,16 @@ const Portfolio = () => {
                   className="backdrop-blur-lg bg-gray-800/40 border border-gray-700/50 rounded-xl overflow-hidden hover:border-blue-500/50 transition-all duration-300 group"
                 >
                   <div className="p-6">
-                    <h3 className="text-2xl font-bold mb-3 group-hover:text-blue-400 transition-colors">{project.title}</h3>
+                    <div className="flex justify-between items-start mb-2">
+                      <h3 className="text-2xl font-bold group-hover:text-blue-400 transition-colors">{project.title}</h3>
+                      {project.title === "Maktabatus Salaf Book Store" && (
+                        <span className="px-2 py-1 text-xs font-semibold bg-green-500/20 text-green-300 rounded-full animate-pulse">
+                          Ongoing
+                        </span>
+                      )}
+                    </div>
                     <p className="text-gray-400 mb-4">{project.description}</p>
-                    
+
                     <div className="flex flex-wrap gap-2 mb-6">
                       {project.tech.map((tech) => (
                         <span
@@ -495,7 +576,7 @@ const Portfolio = () => {
                       ))}
                     </div>
 
-                    <div className="flex gap-4">
+                    <div className="flex flex-wrap gap-4">
                       <a
                         href={project.live}
                         target="_blank"
@@ -514,6 +595,14 @@ const Portfolio = () => {
                         <Github size={18} />
                         <span>Code</span>
                       </a>
+                      {/* View More button */}
+                      <button
+                        onClick={() => setSelectedProject(project)}
+                        className="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors ml-auto"
+                      >
+                        <ArrowUpRight size={18} />
+                        <span>View More</span>
+                      </button>
                     </div>
                   </div>
                 </motion.div>
@@ -523,45 +612,102 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Experience Section */}
-      <section id="experience" className="py-20 bg-gray-800/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Project Details Modal */}
+      <AnimatePresence>
+        {selectedProject && (
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+            onClick={() => setSelectedProject(null)}
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">
-              Work <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Experience</span>
-            </h2>
-
-            <div className="space-y-8">
-              {experiences.map((exp, idx) => (
-                <motion.div
-                  key={exp.role}
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: idx * 0.2 }}
-                  viewport={{ once: true }}
-                  className="backdrop-blur-lg bg-gray-800/40 border border-gray-700/50 rounded-xl p-6 md:p-8 hover:border-blue-500/50 transition-all duration-300"
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="bg-gray-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 md:p-8 border border-gray-700 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex justify-between items-start mb-6">
+                <h3 className="text-3xl font-bold text-blue-400">{selectedProject.title}</h3>
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  className="text-gray-400 hover:text-white transition-colors"
                 >
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                    <div>
-                      <h3 className="text-2xl font-bold text-blue-400">{exp.role}</h3>
-                      <p className="text-xl text-gray-300">{exp.company}</p>
-                    </div>
-                    <span className="text-gray-500 mt-2 md:mt-0">{exp.period}</span>
-                  </div>
-                  <p className="text-gray-400">{exp.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
+                  <XCircle size={28} />
+                </button>
+              </div>
 
-      {/* Contact Section */}
+              <div className="space-y-4">
+                <div>
+                  <h4 className="text-lg font-semibold text-cyan-400 flex items-center gap-2">
+                    <Code size={20} /> Main Technology Stack
+                  </h4>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {selectedProject.tech.map((tech: string) => (
+                      <span key={tech} className="px-3 py-1 bg-blue-500/20 rounded-full text-sm text-blue-300">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-semibold text-cyan-400 flex items-center gap-2">
+                    <Lightbulb size={20} /> Brief Description
+                  </h4>
+                  <p className="text-gray-300 mt-2">{selectedProject.description}</p>
+                </div>
+
+                <div className="flex flex-wrap gap-4">
+                  <a
+                    href={selectedProject.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-2"
+                  >
+                    <ExternalLink size={18} /> Live Project
+                  </a>
+                  <a
+                    href={selectedProject.code}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-400 hover:text-gray-300 transition-colors flex items-center gap-2"
+                  >
+                    <Github size={18} /> GitHub Repository
+                  </a>
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-semibold text-cyan-400 flex items-center gap-2">
+                    <AlertTriangle size={20} /> Challenges Faced
+                  </h4>
+                  <p className="text-gray-300 mt-2">{selectedProject.challenges}</p>
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-semibold text-cyan-400 flex items-center gap-2">
+                    <ArrowUpRight size={20} /> Future Plans & Improvements
+                  </h4>
+                  <p className="text-gray-300 mt-2">{selectedProject.futurePlans}</p>
+                </div>
+              </div>
+
+              <div className="mt-6 flex justify-end">
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  className="px-6 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
+                >
+                  Close
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Contact Section (unchanged except form submission) */}
       <section id="contact" className="py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -659,9 +805,8 @@ const Portfolio = () => {
                   whileTap={{ scale: 0.98 }}
                   onClick={handleSubmit}
                   disabled={isSubmitting}
-                  className={`w-full px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 ${
-                    isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
+                  className={`w-full px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
                 >
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                 </motion.button>
@@ -671,7 +816,7 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Footer */}
+      {/* Footer (unchanged) */}
       <footer className="py-8 border-t border-gray-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-center text-gray-500">
