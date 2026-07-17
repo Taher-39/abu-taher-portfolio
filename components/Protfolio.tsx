@@ -2,13 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { Menu, X, Github, Linkedin, Mail, MapPin, Download, ExternalLink, Code, Database, Wrench, Award, Briefcase, GraduationCap, ChevronRight, XCircle, Lightbulb, AlertTriangle, ArrowUpRight } from 'lucide-react';
-// Import your photo (adjust path if needed)
-import AbuTaher from '../images/AbuTaher.jpg'; // Ensure this path is correct
+import { Menu, X, Github, Linkedin, Mail, MapPin, Download, ExternalLink, Code, Database, Wrench, Award, GraduationCap, ChevronRight, XCircle, Lightbulb, AlertTriangle, ArrowUpRight } from 'lucide-react';
+import AbuTaher from '../images/AbuTaher.jpg';
 
 const Portfolio = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
@@ -63,13 +61,13 @@ const Portfolio = () => {
       futurePlans: "Add AI-based book recommendations, improve search with Elasticsearch, and integrate a payment gateway for international transactions. Also plan to add a mobile app using React Native."
     },
     {
-      title: "Halal Zone",
-      description: "MERN E-Commerce web app with Redux, TypeScript, and JWT Auth. Features include cart management, checkout, dashboard, OTP verification, and order tracking.",
-      tech: ["React", "Redux", "TypeScript", "Tailwind", "Node.js", "Express", "MongoDB"],
-      live: "https://halzo.vercel.app/",
-      code: "https://github.com/Taher-39/camp-store-client",
-      challenges: "Implementing real-time cart updates and payment integration with SSLCommerz.",
-      futurePlans: "Add AI-based product recommendations and multi-language support."
+      title: "CSM Academy",
+      description: "A Bangla-medium EdTech platform for academic students (grades 6-12) and BCS/NTRCA exam preparation, with role-based access for students, teachers, admins, and super admins, course enrollment, live classes, and a custom video player.",
+      tech: ["Next.js", "TypeScript", "Express", "MongoDB", "Tailwind", "Zustand", "Firebase", "Gemini AI"],
+      live: "https://cms-academy.vercel.app",
+      code: "https://github.com/Taher-39/cms-academy-edtech",
+      challenges: "Building a flexible, admin-managed course catalog supporting multiple formats (full courses, revision, MCQ-only, chapter-based), integrating SSLCommerz payments with coupons and refunds, and building a custom video player to remove YouTube's recommended content.",
+      futurePlans: "Expand the AI-powered Gemini assistant for personalized Bangla-language study help and add deeper analytics for student progress tracking."
     },
     {
       title: "Car Rental System",
