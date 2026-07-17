@@ -52,15 +52,6 @@ const Portfolio = () => {
   // Updated projects array with new project and detailed fields
   const projects = [
     {
-      title: "Maktabatus Salaf Book Store",
-      description: "A full-stack e-commerce platform for Islamic books with admin dashboard, user authentication, cart, wishlist, reviews, invoices, and more. Currently in active development.",
-      tech: ["Next.js", "React", "Express", "MongoDB", "Firebase", "Zustand", "Tailwind", "Cloudinary"],
-      live: "https://maktabatus-salaf.vercel.app",
-      code: "https://github.com/Taher-39/maktabatus-salaf",
-      challenges: "Implementing advanced features like Google/Facebook login, OTP-based email registration, and forgot password while ensuring high security. Also managing complex admin panels and real-time data updates.",
-      futurePlans: "Add AI-based book recommendations, improve search with Elasticsearch, and integrate a payment gateway for international transactions. Also plan to add a mobile app using React Native."
-    },
-    {
       title: "CSM Academy",
       description: "A Bangla-medium EdTech platform for academic students (grades 6-12) and BCS/NTRCA exam preparation, with role-based access for students, teachers, admins, and super admins, course enrollment, live classes, and a custom video player.",
       tech: ["Next.js", "TypeScript", "Express", "MongoDB", "Tailwind", "Zustand", "Firebase", "Gemini AI"],
@@ -68,6 +59,15 @@ const Portfolio = () => {
       code: "https://github.com/Taher-39/cms-academy-edtech",
       challenges: "Building a flexible, admin-managed course catalog supporting multiple formats (full courses, revision, MCQ-only, chapter-based), integrating SSLCommerz payments with coupons and refunds, and building a custom video player to remove YouTube's recommended content.",
       futurePlans: "Expand the AI-powered Gemini assistant for personalized Bangla-language study help and add deeper analytics for student progress tracking."
+    },
+    {
+      title: "Maktabatus Salaf Book Store",
+      description: "A full-stack e-commerce platform for Islamic books with admin dashboard, user authentication, cart, wishlist, reviews, invoices, and more. Currently in active development.",
+      tech: ["Next.js", "React", "Express", "MongoDB", "Firebase", "Zustand", "Tailwind", "Cloudinary"],
+      live: "https://maktabatus-salaf.vercel.app",
+      code: "https://github.com/Taher-39/maktabatus-salaf",
+      challenges: "Implementing advanced features like Google/Facebook login, OTP-based email registration, and forgot password while ensuring high security. Also managing complex admin panels and real-time data updates.",
+      futurePlans: "Add AI-based book recommendations, improve search with Elasticsearch, and integrate a payment gateway for international transactions. Also plan to add a mobile app using React Native."
     },
     {
       title: "Car Rental System",
@@ -555,7 +555,7 @@ const Portfolio = () => {
                   <div className="p-6">
                     <div className="flex justify-between items-start mb-2">
                       <h3 className="text-2xl font-bold group-hover:text-blue-400 transition-colors">{project.title}</h3>
-                      {project.title === "Maktabatus Salaf Book Store" && (
+                      {project.title === "CSM Academy" && (
                         <span className="px-2 py-1 text-xs font-semibold bg-green-500/20 text-green-300 rounded-full animate-pulse">
                           Ongoing
                         </span>
