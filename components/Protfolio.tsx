@@ -52,7 +52,16 @@ const Portfolio = () => {
   // Updated projects array with new project and detailed fields
   const projects = [
     {
-      title: "CSM Academy",
+      title: "TextileHub -- B2B Textile Marketplace",
+      description: "Developed a full-stack B2B textile marketplace prototype (hackathon) connecting buyers and suppliers for fabric discovery, bulk ordering, and AI-powered inventory search. Awarded an Appreciation Certificate for the project.",
+      tech: ["Next.js", "TypeScript", "Express.js", "MongoDB", "Tailwind CSS", "Zustand", "Cloudinary", "Gemini AI"],
+      live: "https://hubtextile.vercel.app",
+      code: "https://github.com/Taher-39/hackathon-project",
+      challenges: "Grounding an AI assistant on live DB data (Gemini), building role-based (Buyer/Supplier/Admin) flows with JWT refresh rotation, and implementing bulk pricing + commission logic.",
+      futurePlans: "Add deeper analytics for supplier revenue, extend AI assistant capabilities for advanced quoting, and production-hardening for multi-tenant deployments."
+    },
+    {
+      title: "CMS Academy",
       description: "A Bangla-medium EdTech platform for academic students (grades 6-12) and BCS/NTRCA exam preparation, with role-based access for students, teachers, admins, and super admins, course enrollment, live classes, and a custom video player.",
       tech: ["Next.js", "TypeScript", "Express", "MongoDB", "Tailwind", "Zustand", "Firebase", "Gemini AI"],
       live: "https://cms-academy.vercel.app",
@@ -70,6 +79,15 @@ const Portfolio = () => {
       futurePlans: "Add AI-based book recommendations, improve search with Elasticsearch, and integrate a payment gateway for international transactions. Also plan to add a mobile app using React Native."
     },
     {
+      title: "Kotha -- Video Conference App",
+      description: "A Zoom-like video conferencing web app with real-time video calls, chat, and screen sharing — built with React, TypeScript, Firebase, and ZegoCloud.",
+      tech: ["React", "TypeScript", "Firebase", "@zegocloud/zego-uikit-prebuilt", "Redux Toolkit"],
+      live: "https://github.com/Taher-39/kotha-for-video-conference",
+      code: "https://github.com/Taher-39/kotha-for-video-conference",
+      challenges: "Handling real-time media streams, room state sync, and integrating third-party SDKs (ZegoCloud) securely.",
+      futurePlans: "Add meeting recording, participant roles/host controls, and performance optimizations for large rooms."
+    },
+    {
       title: "Car Rental System",
       description: "Backend API with TypeScript featuring Zod validation, Bcryptjs security, JWT authentication, and comprehensive booking system with admin panel.",
       tech: ["TypeScript", "Express.js", "MongoDB", "Zod", "JWT", "Bcryptjs"],
@@ -77,6 +95,15 @@ const Portfolio = () => {
       code: "https://github.com/Taher-39/car-rental-reservation-system",
       challenges: "Designing complex booking logic and ensuring data consistency across multiple collections.",
       futurePlans: "Add frontend dashboard and real-time availability tracking."
+    },
+    {
+      title: "Halal Zone - E-Commerce Platform",
+      description: "Halal Zone is a curated halal e-commerce platform built for Bangladesh users — product catalog, cart, admin dashboard, and order management with a focus on authentic halal products.",
+      tech: ["React", "TypeScript", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
+      live: "https://halzo.vercel.app",
+      code: "https://github.com/Taher-39/camp-store-client",
+      challenges: "Curating product data, building a reliable order management flow, and integrating localized payment & shipping options.",
+      futurePlans: "Add advanced analytics, international payments, and a mobile-first progressive web app experience."
     }
   ];
 
@@ -555,7 +582,7 @@ const Portfolio = () => {
                   <div className="p-6">
                     <div className="flex justify-between items-start mb-2">
                       <h3 className="text-2xl font-bold group-hover:text-blue-400 transition-colors">{project.title}</h3>
-                      {project.title === "CSM Academy" && (
+                      {project.title === "CMS Academy" && (
                         <span className="px-2 py-1 text-xs font-semibold bg-green-500/20 text-green-300 rounded-full animate-pulse">
                           Ongoing
                         </span>
